@@ -7,7 +7,6 @@ Sistem ini bertujuan untuk mengotomatisasi analisis risiko kredit korporasi deng
 
 ---
 
-````markdown
 # 📊 Dataset Relevan untuk Analisis Risiko Kredit di Indonesia
 
 Untuk membangun sistem **Risk Intelligence Engine** berbasis **Graph Neural Network (GNN)**, **Retrieval-Augmented Generation (RAG)**, dan **Large Language Model (LLM)**, berikut adalah tiga dataset utama yang digunakan:
