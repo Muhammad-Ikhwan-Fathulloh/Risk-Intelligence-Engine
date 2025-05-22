@@ -1,4 +1,9 @@
-Berikut adalah versi dokumentasi **Markdown** yang sudah **diperbaiki dan disusun dengan rapi** untuk ketiga sumber dataset tersebut, agar dapat dimasukkan ke dalam dokumentasi proyek *Risk Intelligence Engine*:
+# 🧠 Risk Intelligence Engine: Otomatisasi Analisis Risiko Kredit dengan GNN, RAG, dan LLM
+
+Sistem ini bertujuan untuk mengotomatisasi analisis risiko kredit korporasi dengan pendekatan gabungan:
+- **Graph Neural Network (GNN)** untuk representasi hubungan antar entitas.
+- **Retrieval-Augmented Generation (RAG)** untuk menarik informasi kontekstual eksternal.
+- **Large Language Model (LLM)** untuk reasoning berbasis Bahasa Indonesia.
 
 ---
 
