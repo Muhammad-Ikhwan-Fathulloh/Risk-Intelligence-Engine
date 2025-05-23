@@ -84,19 +84,3 @@ ds = load_dataset("intanm/indonesian-financial-sentiment-analysis")
 | ID-SMSA                         | ❌               | ✅ (dokumen eksternal) | ✅   |
 | Credit Risk                     | ✅ (node & edge) | ❌                     | ✅   |
 | Sentimen Keuangan (HuggingFace) | ❌               | ✅                     | ✅   |
-
----
-
-> 📌 **Tips**:
->
-> * Gabungkan informasi dari ketiga dataset untuk membuat pipeline yang komprehensif: data tabular (risiko), teks sentimen (masukan publik), dan reasoning (LLM).
-> * Cocok digunakan dalam aplikasi real-time monitoring atau scoring risiko berbasis AI.
-
----
-
-Jika kamu ingin:
-- Ekspor ke `.md` file
-- Gabungkan ini ke README GitHub-mu
-- Tambahkan visualisasi relasi antar dataset (GNN graph)
-
-Bisa aku bantu sekarang juga!
