@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Risk Intelligence Engine</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      background-color: #f0f2f5;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .chat-window {
+      max-height: 500px;
+      overflow-y: auto;
+      padding: 15px;
+      background: white;
+      border-radius: 10px;
+    }
+    .message {
+      margin-bottom: 15px;
+    }
+    .message.user {
+      text-align: right;
+      background-color: #dcf8c6;
+      padding: 10px;
+      border-radius: 15px;
+    }
+    .message.ai {
+      background-color: #e3e3e3;
+      padding: 10px;
+      border-radius: 15px;
+    }
+    .sidebar {
+      background: #ffffff;
+      border-right: 1px solid #ddd;
+      height: 100vh;
+    }
+    .logo {
+      width: 100%;
+      padding: 1rem;
+      text-align: center;
+    }
+    .logo img {
+      height: 200px;
+    }
+    .history-item {
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+    }
+    .history-item:hover {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-3 sidebar">
+        <div class="logo">
+          <img src="/Assets/logo_risk_intelligence_engine.png" alt="Risk Intelligence Engine" />
+        </div>
+        <h5 class="text-center">Riwayat Analisis</h5>
+        <ul id="historyList" class="list-unstyled"></ul>
+      </div>
+
+      <!-- Main Chat Window -->
+      <div class="col-md-9">
+        <div class="my-3">
+          <div class="chat-window" id="chatWindow"></div>
+          <div class="d-flex mt-3">
+            <input type="text" id="userInput" class="form-control me-2" placeholder="Enter text for analysis..." />
+            <input type="file" id="fileInput" class="form-control me-2" accept="application/pdf" />
+            <button onclick="sendMessage()" class="btn btn-primary">Analisis</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const dummyResponses = {
+      "Apa risiko dari peminjam muda dengan penghasilan kecil dan grade C?": {
+        analysis: `
+          Berikut adalah data peminjam dan sentimen pasar:
+          1. Umur: 23, Penghasilan: 77927, Kepemilikan rumah: MORTGAGE, Lama kerja: 7.0, Tujuan pinjaman: EDUCATION, Nilai pinjaman: 15000, Grade: C, Suku bunga: 12.99, Status pinjaman: 0, Rasio pinjaman terhadap penghasilan: 0.19, Default sebelumnya: Y, Panjang histori kredit: 4
+          2. Umur: 24, Penghasilan: 112500, Kepemilikan rumah: MORTGAGE, Lama kerja: 3.0, Tujuan pinjaman: EDUCATION, Nilai pinjaman: 8600, Grade: C, Suku bunga: 13.11, Status pinjaman: 0, Rasio pinjaman terhadap penghasilan: 0.08, Default sebelumnya: Y, Panjang histori kredit: 3
+          3. Umur: 25, Penghasilan: 70224, Kepemilikan rumah: MORTGAGE, Lama kerja: 1.0, Tujuan pinjaman: EDUCATION, Nilai pinjaman: 21000, Grade: C, Suku bunga: 13.22, Status pinjaman: 0, Rasio pinjaman terhadap penghasilan: 0.3, Default sebelumnya: N, Panjang histori kredit: 4
+        `,
+        recommendation: `Peminjam muda dengan penghasilan kecil dan grade C memiliki risiko yang lebih tinggi untuk gagal membayar pinjaman.`
+      }
+    };
+  
+    function sendMessage() {
+      const userInput = document.getElementById("userInput").value.trim();
+      const file = document.getElementById("fileInput").files[0];
+      if (!userInput && !file) return;
+  
+      addMessage("user", userInput || file.name);
+  
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          addMessage("ai", "(Simulated analysis result for PDF: " + file.name + ")");
+          saveHistory(file.name);
+        };
+        reader.readAsArrayBuffer(file);
+      } else {
+        const response = dummyResponses[userInput];
+        if (response) {
+          addMessage("ai", `<strong>Analisis:</strong><br>${response.analysis.replace(/\n/g, "<br>")}`);
+          addMessage("ai", `<strong>Rekomendasi:</strong><br>${response.recommendation}`);
+        } else {
+          addMessage("ai", "Analysis result not available. Please enter a valid question.");
+        }
+        saveHistory(userInput);
+      }
+  
+      document.getElementById("userInput").value = "";
+      document.getElementById("fileInput").value = null;
+    }
+  
+    function addMessage(sender, html) {
+      const div = document.createElement("div");
+      div.className = "message " + sender;
+      div.innerHTML = html;
+      chatWindow.appendChild(div);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+  
+    function saveHistory(text) {
+      const li = document.createElement("li");
+      li.className = "history-item";
+      li.textContent = text;
+      li.onclick = () => {
+        document.getElementById("userInput").value = text;
+      };
+      historyList.appendChild(li);
+    }
+  </script>  
+</body>
+</html>
